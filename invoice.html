@@ -1,0 +1,690 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invoice</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+        <style>
+            body {
+                font-family: Default;
+                background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+                color: #333;
+                margin: 0;
+                padding: 20px;
+            }
+    
+            .invoice-container {
+                max-width: 800px;
+                margin: auto;
+                background: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                overflow: hidden;
+                border: 1px solid #dcdcdc;
+            }
+    
+            h1 {
+                text-align: center;
+                color: #007BFF;
+                margin-bottom: 20px;
+            }
+    
+            .header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+    
+            .company-info {
+                margin-bottom: 40px;
+                text-align: center;
+            }
+    
+            .company-info h2 {
+                color: #008080;
+                margin-bottom: 10px;
+            }
+    
+            .company-info p {
+                margin: 5px 0;
+                color: #666;
+            }
+    
+            .invoice-info {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+    
+            .invoice-info div {
+                width: 48%;
+            }
+    
+            .invoice-details {
+                border-top: 2px solid #007BFF;
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+    
+            .invoice-item {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 0;
+                border-bottom: 1px solid #e0e0e0;
+            }
+    
+            .charges {
+                border-top: 2px solid #007BFF;
+                padding-top: 10px;
+                margin-top: 20px;
+            }
+    
+            .charges h4 {
+                margin-top: 10px;
+                color: #007BFF;
+            }
+    
+            button {
+                display: block;
+                width: 100%;
+                margin: 20px 0;
+                padding: 10px;
+                background: #007BFF;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+    
+            button:hover {
+                background: #0056b3;
+            }
+    
+            .button-group {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+    
+            .button-group button {
+                width: calc(33.33% - 10px);
+            }
+    
+            fieldset {
+                border: 1px solid #007BFF;
+                border-radius: 8px;
+                padding: 15px;
+                margin-bottom: 20px;
+                background: #f9f9f9;
+            }
+    
+            legend {
+                font-weight: bold;
+                color: #007BFF;
+            }
+    
+            label {
+                font-size: 1.1em;
+                margin-bottom: 8px;
+                display: block;
+                color: #555;
+            }
+    
+            .email-container {
+                margin-top: 20px;
+            }
+    
+            input[type="email"] {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0;
+                border: 1px solid #007BFF;
+                border-radius: 5px;
+            }
+    
+            @media (max-width: 768px) {
+                .invoice-info {
+                    flex-direction: column;
+                }
+    
+                .button-group {
+                    flex-direction: column;
+                }
+    
+                button {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    <div <div id="invoice-wrapper">
+        <div id="invoice-container">
+            <div class="header">
+                <h1>Invoice</h1>
+                <div class="company-info">
+                    <h2>The Pastry Hub</h2>
+                    <p>237 Old Hope Road, Kingston</p>
+                    <p>Kingston, Jamaica, 876</p>
+                    <p>Phone:  +1 (876) 000-0000</p>
+                    <p>Email: ThePastryHub@gmail.com</p>
+                </div>
+            </div>
+    
+            <fieldset>
+                <legend>Recipient Information</legend>
+               
+                <div>
+                    <label for="purchaseID"</label>Invoice #: 
+                        <span id="purchaseID"></span>
+                </div>
+    
+                <div>
+                    <label for="firstName"</label>User: 
+                        <span id="firstName"></span>
+                </div>
+    
+                <div>
+                    <label for="currentDate"</label>Purchased Date:
+                      <span id="currentDate"></span>
+                </div>
+                <p></p<
+                <div>
+                    <label for="trn"</label>Tax Registration Number:
+                      <span id="trn"></span>
+                </div>
+            </fieldset>
+    
+            <fieldset> 
+                <legend> Shipping Information</legend>
+    
+                <div>
+                    <label for="name"</label>Name:
+                        <span id="name"></span>
+                </div>
+    
+                <div>
+                    <label for="email_ship"</label>Email:
+                        <span id="email_ship"></span>
+                </div>
+       
+    
+                <div>
+                    <label for="address"</label>Address:
+                        <span id="address"></span>
+                </div>
+    
+    
+                <div>
+                    <label for="cardnum"</label>Card Number:
+                         <span id="cardnum"></span> 
+                </div>
+           
+                         
+                <div>
+                    <label for="expiry"</label>Card Expiry:
+                        <span id="expiry"></span>
+                </div>
+    
+                <div>
+                    <label for="cvv"</label>Card CVV:
+                        <span id="cvv"></span>   
+                </div>
+            </fieldset>
+    
+            <fieldset class="invoice-details">
+                <legend>Purchase Information</legend>
+                <div id="invoice-details"></div>
+                <div class="charges">
+                    <h3>Charges</h3>
+                    <p id="subtotal"></p>
+                    <p id="tax"></p>
+                    <p id="discount"></p>
+                    <h4 id="total-price"></h4>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+            <div class="button-group">
+                <button id="print-invoice">Print Invoice</button>
+                <button id="exit-page">Exit</button>
+            </div>
+       
+    
+        <script>
+        function getCurrentUser_Date() {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+                if (currentUser) 
+                {
+                    const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+                    const fullName = `${capitalize(currentUser.first_name)} ${capitalize(currentUser.last_name)}`;
+                    const trn = currentUser.trn;
+                    document.getElementById('firstName').textContent = fullName;
+                    document.getElementById('trn').textContent = trn;
+
+                    const today = new Date();
+                    const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
+                    document.getElementById('currentDate').textContent = formattedDate;
+
+                    
+            // Retrieve and convert back to an integer
+            const orderID = parseInt(localStorage.getItem("orderID"), 10);
+
+            // Check if orderID is valid before using
+            if (!isNaN(orderID)) {
+                console.log("Order ID:", orderID);
+            } else {
+                console.error("Invalid Order ID");
+            }
+
+
+      
+
+
+
+        // Retrieve the stored data from localStorage
+        const dataValue = JSON.parse(localStorage.getItem("sharedData"));
+        const cal = JSON.parse(localStorage.getItem('calculation'));
+        const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+
+        if (dataValue) {
+            // Prepare the invoice data for each cart item
+            const invoiceData = {
+                fullName: fullName,
+                trn: trn,
+                invoiceNumber: orderID,
+
+                buyDate: new Date().toLocaleDateString(),
+                emailShip: dataValue.email,
+                cardnum: dataValue.cardNumber,
+                shipName: dataValue.name,
+                address: dataValue.address,
+                expiry: dataValue.expiry,
+                cvv: dataValue.cvv,
+                discount: cal.discount,
+                subtotal: cal.subtotal,
+                tax: cal.tax,
+                total: cal.total,
+                items: [] // Initialize the items array as an empty array
+            };
+
+            // Loop through cartItems (which is an array) and add item details to invoice
+            cartItems.forEach(item => {
+                invoiceData.items.push({
+                    itemName: item.name,
+                    itemPrice: item.price,
+                    itemQuantity: item.quantity
+                });
+            });
+
+            // Now you can use invoiceData which contains the invoice with items
+            console.log(invoiceData);
+
+            // Retrieve the existing invoice data if any
+            let existingInvoiceData = JSON.parse(localStorage.getItem(trn)) || [];
+
+            // Append new invoice data to the existing data (or create new data if none exists)
+            existingInvoiceData.push(invoiceData);
+
+            // Store the updated data in localStorage using TRN as the key
+            localStorage.setItem(trn, JSON.stringify(existingInvoiceData));
+
+            // Check if the global 'All Invoices' key exists in localStorage
+            let allInvoices = JSON.parse(localStorage.getItem('All Invoices')) || [];
+
+            // Add the new invoice to the global 'All Invoices' array
+            allInvoices.push(invoiceData);
+
+            // Store the updated global list of invoices back to localStorage
+            localStorage.setItem('All Invoices', JSON.stringify(allInvoices));
+
+            // Clear previous checkout info data
+            localStorage.removeItem('sharedData');
+        }
+    } else {
+        document.getElementById('firstName').textContent = 'Guest';
+    }
+}
+
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+const TAX_RATE = 0.1;
+const DISCOUNT_RATE = 0.15;
+
+function calculateCharges() {
+    let subtotal = 0;
+
+    cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+    });
+
+    const discount = subtotal > 100 ? subtotal * DISCOUNT_RATE : 0;
+    const tax = subtotal * TAX_RATE;
+    const total = subtotal + tax - discount;
+
+    return { subtotal, tax, discount, total };
+}
+
+function displayInvoice() 
+{
+            const invoiceDetails = document.getElementById('invoice-details');
+            const { subtotal, tax, discount, total } = calculateCharges();
+
+            invoiceDetails.innerHTML = '';
+            const invoiceItems = [];
+
+            // Iterate over the cart and build the array
+            cart.forEach(item => {
+                const itemTotalPrice = item.price * item.quantity;
+
+                // Add the item details to the invoiceItems array
+                invoiceItems.push({
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price,
+                    total: itemTotalPrice
+                });
+
+                // Update the invoiceDetails on the page
+                invoiceDetails.innerHTML += `
+                    <div class="invoice-item">
+                        <span>${item.name} (x${item.quantity})</span>
+                        <span>$${itemTotalPrice.toFixed(2)}</span>
+                    </div>`;
+            });
+
+            // Store the invoiceItems array in localStorage
+            localStorage.setItem('cartItems', JSON.stringify(invoiceItems));
+
+            // Clear previous calculation data
+            localStorage.removeItem('calculation');
+
+            document.getElementById('subtotal').innerHTML = `Subtotal: $${subtotal.toFixed(2)}`;
+            document.getElementById('tax').innerHTML = `Tax: $${tax.toFixed(2)}`;
+            document.getElementById('discount').innerHTML = `Discount: $${discount.toFixed(2)}`;
+            document.getElementById('total-price').innerHTML = `Total: $${total.toFixed(2)}`;
+
+            const cal = {
+                subtotal: subtotal,
+                tax: tax,
+                discount: discount,
+                total: total
+            };
+
+            // Store the `cal` object in localStorage under the key 'invoiceDetails'
+           // Store calculation details in localStorage
+                        localStorage.setItem('calculation', JSON.stringify(cal));
+
+                        let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                        let order_id = localStorage.getItem("orderID"); // Retrieve order ID from localStorage
+                        let calculation = JSON.parse(localStorage.getItem("calculation")); // Retrieve calculation details
+
+                        let user_id = currentUser ? currentUser.user_id : null;
+                        let trn = currentUser ? currentUser.trn : null;
+
+                        if (!user_id) {
+                            alert("User is not logged in.");
+                            return;
+                        }
+
+                        if (!calculation || !calculation.total) {
+                            alert("No calculation data found.");
+                            return;
+                        }
+
+                        // 🔹 First fetch request to insert order
+                        let formData = new FormData();
+                        formData.append("order_id", order_id);
+                        formData.append("user_id", user_id);
+                        formData.append("total_price", calculation.total); // Sending only the total
+
+                        fetch("insert_order.php", {
+                            method: "POST",
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message); // Show success or error message
+
+
+                            if (data.status === "success")
+                             {
+                                // Call insertInvoice separately
+                                    //insertInvoice(calculation, order_id, user_id);
+                            } 
+                            else 
+                            {
+                                throw new Error("Order insertion failed. Invoice will not be created.");
+                            }
+                        })
+                        
+                        .catch(error => console.error("Error:", error));
+
+                         // Call insertInvoice separately
+       insertInvoice(calculation, order_id, user_id, trn);
+
+        //orderedItems();
+                            
+
+}
+
+
+
+function insertInvoice(calculation, order_id, user_id, trn) 
+{
+    let newformData = new FormData();
+    newformData.append("order_id", order_id);
+    newformData.append("user_id", user_id);
+    newformData.append("total_price", calculation.total);
+    newformData.append("subtotal", calculation.subtotal);
+    newformData.append("tax", calculation.tax);
+    newformData.append("discount", calculation.discount);
+
+    fetch("invoiceData.php", {
+        method: "POST",
+        body: newformData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => console.error("Error:", error));
+
+    sendOrderItems(order_id, user_id, trn);
+
+
+}
+function sendOrderItems(order_id, user_id, trn) {
+            let cartItems = JSON.parse(localStorage.getItem("cartItems")); // Retrieve cart items
+            let allProducts = JSON.parse(localStorage.getItem("AllProducts")); // Retrieve all products
+
+            if (!order_id || !cartItems || cartItems.length === 0 || !allProducts) {
+                alert("Order ID, cart items, or product data is missing.");
+                return;
+            }
+
+            let updatedCartItems = cartItems.map(item => {
+                let product = allProducts.find(p => p.name === item.name); // Find product by name
+                return {
+                    product_id: product ? product.id : null, // Assign the product ID if found
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: parseFloat(item.price),
+                    total: parseFloat(item.total)
+                };
+            });
+
+            // Remove items with null product_id (if any)
+            updatedCartItems = updatedCartItems.filter(item => item.product_id !== null);
+
+            if (updatedCartItems.length === 0) {
+                alert("No valid product IDs found for order items.");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("order_id", order_id);
+            formData.append("user_id", user_id);
+            formData.append("trn", trn);
+            formData.append("cart_items", JSON.stringify(updatedCartItems)); // Send cart items with IDs
+
+            fetch("insert_order_items.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Show success or error message
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+
+
+
+document.getElementById('print-invoice').addEventListener('click', () => {
+    window.print();
+});
+
+
+
+document.getElementById('exit-page').addEventListener('click', () => {
+    window.location.href = './product.php';
+});
+
+function invoiceInfo() {
+    // Retrieve the stored data from localStorage
+    const dataValue = JSON.parse(localStorage.getItem("sharedData"));
+
+    if (dataValue) {
+        // Access the cardNumber from the dataValue object and display it
+        document.getElementById('cardnum').textContent = dataValue.cardNumber;
+        document.getElementById('email_ship').textContent = dataValue.email;
+        document.getElementById('name').textContent = dataValue.name;
+        document.getElementById('address').textContent = dataValue.address;
+        document.getElementById('expiry').textContent = dataValue.expiry;
+        document.getElementById('cvv').textContent = dataValue.cvv;
+    }
+
+    // Clear the cart and update order summary
+    localStorage.removeItem('cart');
+    cart = [];
+    //updateOrderSummary();
+}
+
+// Disable page refresh
+window.addEventListener('beforeunload', function (e) {
+    // Warn the user against refreshing
+    e.preventDefault();
+    e.returnValue = '';
+});
+
+// Disable all clicks except the three buttons
+document.addEventListener('DOMContentLoaded', () => {
+    // Get all clickable elements
+    const allElements = document.querySelectorAll('a, button, input, select, textarea');
+
+    // Allow only specific buttons to be clickable
+    const allowedButtons = [ 'print-invoice', 'exit-page'];
+
+    allElements.forEach((element) => {
+        if (element.tagName === 'BUTTON' && allowedButtons.includes(element.id)) {
+            // Keep these buttons enabled
+            return;
+        }
+        // Disable all other clickable elements
+        element.style.pointerEvents = 'none';
+        element.style.opacity = '0.6'; // Optionally make them look disabled
+    });
+});
+
+
+
+
+// Retrieve the current orderiD/Invoice# value and display it
+document.addEventListener('DOMContentLoaded', () => 
+{
+    // Retrieve orderID from localStorage
+    let orderID = localStorage.getItem("orderID");
+
+    if (orderID) {
+        document.getElementById("purchaseID").textContent = orderID;
+    } else {
+        document.getElementById("purchaseID").textContent = "Order ID not found!";
+    }
+
+    // Call other functions to display invoice and user info
+    displayInvoice();
+    invoiceInfo();
+    getCurrentUser_Date();
+   captureInvoiceAsPDF();
+
+});
+function closeWinddow()
+{
+    let orderID = localStorage.getItem("orderID"); // Retrieve order ID
+
+    if (orderID) {
+        console.log("Order ID:", orderID); // Check if it exists
+        localStorage.removeItem("orderID"); // Clear orderID from localStorage
+
+    }
+    window.location.replace("thank_you.html"); // Replace current page without adding it to the browser history
+
+
+}
+
+function captureInvoiceAsPDF()
+ {
+    const invoiceElement = document.getElementById('invoice-wrapper'); // Make sure this is the full container
+
+    html2canvas(invoiceElement, {
+        scale: 3, // Increases quality
+        windowWidth: invoiceElement.scrollWidth,  // Captures full width
+        windowHeight: invoiceElement.scrollHeight // Ensures full height
+    }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        const imgWidth = 180; 
+        let imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let position = 10;
+        const pageHeight = 297; // A4 height in mm
+        let heightLeft = imgHeight;
+
+        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft > 0) {
+            position -= pageHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        pdf.save("invoice.pdf");
+
+        setTimeout(function() {
+            window.close(); // Close the current window
+        }, 2000);
+
+        closeWinddow();
+
+
+        
+    });
+}
+
+
+
+    </script>
+    </body>
+    </html>

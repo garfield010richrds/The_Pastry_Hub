@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Forgot Password - The Pastry Hub</title>
+      <link rel="icon" href="favicon.ico" />
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    
+        /* Global Reset */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(135deg, #ffe6f2, #fddde6);
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+        }
+        
+        header {
+          width: 100%;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+        
+        header .logo {
+          display: inline-block;
+          text-align: center;
+        }
+        
+        header .logo img {
+          max-width: 150px;
+          height: auto;
+          border-radius: 50%;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        header p {
+          font-size: 1.2rem;
+          color: #5d3a3a;
+          margin-top: 10px;
+          font-weight: 600;
+        }
+        
+        .container {
+          background: rgba(255, 255, 255, 0.95);
+          max-width: 400px;
+          width: 100%;
+          padding: 30px 40px;
+          border-radius: 15px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          margin: 0 auto;
+        }
+        
+        h1 {
+          color: #d6336c;
+          margin-bottom: 20px;
+          font-size: 2rem;
+        }
+        
+        p {
+          margin-bottom: 20px;
+          font-size: 1rem;
+          color: #5d3a3a;
+        }
+        
+        .form-group {
+          margin-bottom: 20px;
+          text-align: left;
+        }
+        
+        .form-group label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 600;
+          color: #5d3a3a;
+        }
+        
+        .form-group input {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          font-size: 1rem;
+          transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-group input:focus {
+          border-color: #ff9aa2;
+          outline: none;
+          box-shadow: 0 0 5px rgba(255, 154, 162, 0.5);
+        }
+        
+        .submit-btn {
+          width: 100%;
+          padding: 15px;
+          background: linear-gradient(45deg, #ff9aa2, #ffb6c1);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 1.1rem;
+          cursor: pointer;
+          transition: background 0.3s;
+          margin-bottom: 15px;
+        }
+        
+        .submit-btn:hover {
+          background: linear-gradient(45deg, #ffb6c1, #ff9aa2);
+        }
+        
+        .login-link {
+          text-align: center;
+          font-size: 0.95rem;
+          margin-top: 10px;
+        }
+        
+        a {
+          color: #d6336c;
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+        
+        a:hover {
+          text-decoration: underline;
+          color: #b1272e;
+        }
+      </style>
+</head>
+<body>
+
+<!-- Header section -->
+<header>
+    <div id="header">
+        <div class="container">
+            <div class="header-flex">
+                <div class="header-logo">
+                    <a href="#" class="logo">
+                        <img src="img/logo.jpg" alt="logo" style="width: 200px; height: auto; align-items: center">
+                        <p><b>Welcome to The Pastry Hub!</b></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main login form container -->
+<div class="container">
+    <h1>Login</h1>
+    <form id="loginForm" method="post">
+      <div class="form-group">
+            <label for="trn">TRN <span>*</span></label>
+            <input type="text" id="trn" placeholder="Enter TRN" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password <span>*</span></label>
+            <input type="password" id="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="submit-btn">Login</button><br><br>
+        <button type="button" class="submit-btn" id="cancel-btn">Cancel</button>
+        <p><a href="#" id="resetPasswordLink">Reset Password</a></p>
+    </form>
+
+    <!-- Link to the registration page -->
+    <p>Don't have an account? <a href="./signup.html">Register here</a></p>
+</div>
+
+<script>
+    	document.addEventListener('DOMContentLoaded', function() {
+      localStorage.clear();
+
+   
+   
+    });
+  document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent page reload
+
+      let trn = document.getElementById("trn").value;
+      let password = document.getElementById("password").value;
+
+      let formData = new FormData();
+      formData.append("trn", trn);
+      formData.append("password", password);
+
+      fetch("login.php", {
+          method: "POST",
+          body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === "success") {
+              localStorage.setItem("currentUser", JSON.stringify(data.user));
+              alert("Login successful!");
+              window.location.href = "product.php";
+          } else {
+              alert(data.message);
+          }
+      })
+      .catch(error => console.error("Error:", error));
+  });
+</script>
+
+</body>
+</html>

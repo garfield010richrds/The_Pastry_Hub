@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, rgb(222, 221, 239), rgb(220, 204, 212)); /* Gradient of pink shades */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        #Logo {
+            margin-top: 0;
+            width: 200px;
+            margin-left: 45%;
+        }
+        
+        #LogoDiv {
+            background-color: Pink;
+        }
+        
+        .order-n-checkout-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 30px;
+            margin: 5px;
+        }
+        
+        .checkout-container {
+            display: absolute;
+            width: 40%;
+            margin-top: 10px;
+            background-color: #f5f5f5;
+            padding: 20px;
+            padding-right: 50px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 50px;
+        }
+        
+        p {
+            margin: 20px 20px 40px 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .checkout-form {
+            margin: 20px 0;
+            padding: 5px;
+        }
+        
+        .checkout-form input {
+            width: 100%;
+            height: 30px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .checkout-buttons {
+            display: flex;
+            gap: 50px;
+            margin-top: 10px;
+            margin-right: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        button {
+            padding: 10px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #008080;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #006666;
+        }
+        
+        .order-summary {
+            margin-top: 20px;
+            background-color: white;
+            width: 40%;
+            padding: 50px 20px 0px;
+            margin-right: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid #008080;
+        }
+        
+        h2 {
+            margin-left: 30%;
+            margin-top: 5px;
+            border-bottom: 3px solid black;
+        }
+        
+        h3 {
+            font-weight: bold;
+            color: red;
+            margin-left: 20px;
+            padding-bottom: 20px;
+            padding: 10px;
+        }
+        
+        #EnterShip {
+            font-size: 30px;
+        }
+        
+        .order-item img {
+            width: 100px;
+            border-radius: 5px;
+        }
+        
+        .mainItemDiv {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .innerItemDiv {
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+        }
+        
+        .productDetails {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        #itemNameQuantity {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        #itemPrice {
+            font-size: 16px;
+            font-weight: bold;
+            color: #008080;
+        }
+        
+        /* Mobile and tablet responsiveness */
+        @media (max-width: 768px) {
+            #Logo {
+                width: 200px;
+                margin-left: 30%;
+            }
+        
+            h1 {
+                margin-top: 50px;
+            }
+        
+            .order-n-checkout-container {
+                flex-direction: column;
+                gap: 20px;
+                margin: 5px;
+                align-items: center;
+                justify-content: center;
+            }
+        
+            h2 {
+                margin-left: 20%;
+                margin-top: 5px;
+                border-bottom: 3px solid black;
+            }
+        
+            .order-summary {
+                width: 60%;
+                padding: 20px;
+                margin-top: 60px;
+                margin-right: 0;
+            }
+        
+            .innerItemDiv {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
+                margin-left: 30px;
+                margin-top: 30px;
+            }
+        
+            .checkout-container, .fieldset {
+                width: 80%;
+                padding: 15px;
+                margin-left: 5px;
+            }
+        
+            .checkout-form input {
+                font-size: 13px;
+                width: 90%;
+            }
+        
+            button {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .order-summary {
+                width: 100%;
+                padding: 20px;
+            }
+        
+            .checkout-container {
+                width: 100%;
+            }
+        
+            .checkout-form input {
+                font-size: 14px;
+            }
+        
+            button {
+                width: 100%;
+            }
+        }
+        </style>
+        
+</head>
+<body>
+	<div id="LogoDiv"><img id="Logo" src="img\logo.jpg"></div>
+	<h1>Checkout</h1>
+	<p>Thank you for ordering from The Pastry Hub. <br>Complete all the checkout details below to process your order.</p>
+    <div class="order-n-checkout-container">
+        <div class="order-summary" id="order-summary">
+            <!-- Order details will be displayed here -->
+        </div>
+
+        <div class="checkout-container">
+            <div class="checkout-form-container">
+                <p id="EnterShip"><strong>Enter Shipping Details</strong></p>
+                <form class="checkout-form" id="checkout-form">
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="email" id="email" placeholder="Email" required>
+
+                    <fieldset>
+                        <legend>Shipping Address</legend>
+                        <label for="street">Street:</label>
+                        <input type="text" id="street" required>
+                        
+                        <label for="town">Town:</label>
+                        <input type="text" id="town" required>
+                        
+                        <label for="parish">Parish:</label>
+                        <input type="text" id="parish" required>
+                        
+                        <label for="country">Country:</label>
+                        <input type="text" id="country" required>
+                        
+                        <label for="apartment">Building & Apartment/Room number #:</label>
+                        <input type="text" id="apartment">
+                        
+                        <label for="address">Full Address:</label>
+                        <input type="text" id="address" readonly>
+                    </fieldset>
+
+                    <fieldset id = 'card'>
+                        <legend>Card Information</legend>
+                        <input type="text" id="cardNumber" minlength = "19" maxlength="19" placeholder="Card Number: 0000-0000-0000-0000" required>
+                        <input type="text" id="expiry" minlength = "5" maxlength="5" placeholder="Expiry Date (MM/YY)" required>
+                        <input type="number" id="cvv" minlength = "3" maxlength="3" placeholder="CVV" required>
+                    </fieldset>
+                        <div class="checkout-buttons">
+                        <button type="submit" id="confirm">Confirm Purchase</button>
+                        <button type="button" id="cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p id="card-validation-result" style="color:red;"></p>
+        
+
+    <script>
+        // Initialize Cart
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+        function updateOrderSummary() 
+        {
+            const orderSummary = document.getElementById('order-summary');
+            orderSummary.innerHTML = '<h2>Order Summary</h2>'; // Clear existing content
+    
+            let itemTotal = 0;
+            cart.forEach(item => {
+            const itemTotalPrice = item.price * item.quantity;
+            itemTotal += itemTotalPrice;
+
+            // Create a div for each item
+            const orderItemDiv = document.createElement('div');
+            orderItemDiv.classList.add('order-item'); // ORDER ITEM
+
+            // Create the inner content for the item
+            const itemContent = `
+                <div class="mainItemDiv">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="innerItemDiv">
+                        <div id="itemNameQuantity">${item.name} (x${item.quantity})</div>
+                        <div id="itemPrice">$${itemTotalPrice.toFixed(2)}</div> <!-- Price displayed here -->
+                    </div>
+                </div>
+            `;
+            orderItemDiv.innerHTML = itemContent;  // Set content
+
+            // Append the item to the order summary
+            orderSummary.appendChild(orderItemDiv);
+        });
+
+            // Update Order summary
+            const priceDiv = document.createElement('h3');
+            priceDiv.textContent = `Sub total: $${itemTotal.toFixed(2)}`;
+			orderSummary.appendChild(priceDiv);
+			
+			const tax = itemTotal * 0.1;
+			const taxDiv = document.createElement('h3');
+            taxDiv.textContent = `Total Tax: $${tax.toFixed(2)}`;
+			orderSummary.appendChild(taxDiv);
+			
+			const discount = itemTotal > 100 ? itemTotal * 0.15 : 0;
+			const discDiv = document.createElement('h3');
+            discDiv.textContent = `Total Discount: $${discount.toFixed(2)}`;
+			orderSummary.appendChild(discDiv);
+			
+			const total = itemTotal + tax - discount;
+			const totalDiv = document.createElement('h3');
+            totalDiv.textContent = `Final Price: $${total.toFixed(2)}`;
+			orderSummary.appendChild(totalDiv);
+			
+        }
+    
+        // Handle Checkout Form Submission
+        document.getElementById('checkout-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const cardNumber = document.getElementById('cardNumber').value;
+            if (validateCardForm()) 
+            {
+                mergeAddress()
+
+                let name = document.getElementById('name').value;
+                let email = document.getElementById('email').value;
+                let address = document.getElementById('address').value;
+                let expiry = document.getElementById('expiry').value;
+                let cvv = document.getElementById('cvv').value;
+    
+                
+                // Log values to ensure they are correct
+                console.log('Form Data:', { name, email, address, cardNumber, expiry, cvv });
+                const cartItems = JSON.parse(localStorage.getItem("cart"));
+
+                const values = [];
+                // Check if values are empty
+                if (name && email && address && cardNumber && expiry && cvv) {
+                    const values = {
+                        name,
+                        email,
+                        address,
+                        cardNumber,
+                        expiry,
+                        cvv,
+
+                    };
+
+                    // Store data in localStorage after stringifying it
+                    
+                        localStorage.setItem("sharedData", JSON.stringify(values));
+                        sqlInsert();
+
+                        // Log stored data to confirm
+                        console.log('Stored Shared Data:', localStorage.getItem("sharedData"));
+    
+
+
+
+                        // Alert to confirm the purchase
+                        alert(`new Thank you, ${name}! Your purchase has been completed!`);
+                        
+                        // Open the invoice page in a new tab
+                        window.open('popup.html', '_blank');
+                        
+                        
+							updateOrderSummary();// Update order summary to show empty cart
+                        
+                        // Reload the page and redirect to products.html
+                        window.location.href = 'product.php'; // Redirect to products page after the purchase
+                   
+                        alert("Sorry, there was an issue storing your data. Please try again.");
+
+                    
+                } else {
+                    alert("Please fill out all fields before submitting.");
+                }
+            }
+        });
+
+        function sqlInsert() {
+
+                    // Retrieve user ID from local storage
+                    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+                    let user_id = currentUser ? currentUser.user_id : null;
+
+                    if (!user_id) {
+                        alert("User is not logged in.");
+                        return;
+                    }
+
+
+                    let orderID = (133 * user_id) + Math.floor(Math.random() * 900 + 100);
+                    //localStorage.setItem("orderID", orderID.toString());
+            // Store orderID as a string in localStorage (localStorage only supports strings)
+            localStorage.setItem("orderID", orderID.toString());
+
+
+
+                    // Collect form data
+                    let formData = new FormData();
+                    formData.append("order_id", orderID);
+                    formData.append("fullName", document.getElementById("name").value);
+                    formData.append("email", document.getElementById("email").value);
+                    formData.append("address", document.getElementById("address").value);
+                    formData.append("cardNumber", document.getElementById("cardNumber").value);
+                    formData.append("expiry", document.getElementById("expiry").value);
+                    formData.append("cvv", document.getElementById("cvv").value);
+                    formData.append("user_id", user_id);
+
+                    console.log("Sending Order ID:", formData.get("order_id"));
+                    
+                    fetch("checkout_process.php", {
+                        method: "POST",
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === "success") {
+                        
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+
+
+
+    function validateCardForm() {
+    const cardNumber = document.getElementById('cardNumber').value;
+    const expiry = document.getElementById('expiry').value;
+    const cvv = document.getElementById('cvv').value;
+    const result = document.getElementById('card-validation-result');
+
+    let errors = [];
+
+    if (!/^\d{4}-\d{4}-\d{4}-\d{4}$/.test(cardNumber)) {
+        errors.push('Invalid card number format. Must be 16 digits with dashes (XXXX-XXXX-XXXX-XXXX).');
+    }
+
+    if (!/^\d{2}\/\d{2}$/.test(expiry)) {
+        errors.push('Invalid expiry date format. Must be MM/YY.');
+    }
+
+    if (!/^\d{3}$/.test(cvv)) {
+        errors.push('CVV must be exactly 3 digits.');
+    }
+
+    if (errors.length > 0) {
+        result.innerHTML = errors.join('<br>'); // Display errors
+        return false; // Prevent form submission
+    }
+
+    result.innerHTML = ""; // Clear errors if validation passes
+    return true; // Allow form submission
+}
+    
+        // Handle the Cancel button action
+        document.getElementById('cancel').addEventListener('click', () => {
+            window.location.href = 'cart.html'; // Redirect to cart page
+        });
+    
+        // Update Order Summary on Page Load
+        window.onload = () => {
+            updateOrderSummary();
+        };
+
+      
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        value = value.substring(0, 16); // Limit to 16 digits
+        value = value.replace(/(\d{4})(?=\d)/g, '$1-'); // Insert dashes after every 4 digits
+        e.target.value = value;
+    });
+
+    document.getElementById('expiry').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 2) value = value.slice(0, 2) + '/' + value.slice(2, 4);
+    
+    let month = parseInt(value.slice(0, 2), 10);
+    if (month > 12) value = "12" + value.slice(2); // Correct invalid month
+    
+    e.target.value = value.substring(0, 5);
+});
+
+
+    document.getElementById('cvv').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        e.target.value = value.substring(0, 3); // Limit to 3 characters
+    });
+
+   
+
+    function mergeAddress() {
+            let street = document.getElementById("street").value;
+            let town = document.getElementById("town").value;
+            let parish = document.getElementById("parish").value;
+            let country = document.getElementById("country").value;
+            let apartment = document.getElementById("apartment").value;
+            
+            let fullAddress = `${street}, ${town} ${parish}, ${country}`;
+            if (apartment) {
+                fullAddress = `${apartment}, ` + fullAddress;
+            }
+            
+            document.getElementById("address").value = fullAddress;
+        }
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll("input").forEach(input => {
+                input.addEventListener("input", mergeAddress);
+            });
+        });
+    </script>
+	
+</body>
+</html>

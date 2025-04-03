@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup - The Pastry Hub</title>
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe6f2, #fddde6);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header .logo {
+      display: inline-block;
+      text-align: center;
+    }
+
+    header .logo img {
+      max-width: 150px;
+      height: auto;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #5d3a3a;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      max-width: 500px;
+      width: 100%;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #d6336c;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #5d3a3a;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #ff9aa2;
+      outline: none;
+      box-shadow: 0 0 5px rgba(255, 154, 162, 0.5);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #ff9aa2, #ffb6c1);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-bottom: 15px;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(45deg, #ffb6c1, #ff9aa2);
+    }
+
+    .cancel-btn {
+      width: 100%;
+      padding: 15px;
+      background: #ccc;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .cancel-btn:hover {
+      background: #bbb;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: #d6336c;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #b1272e;
+    }
+
+    span {
+      color: red;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+   <header>
+  <div class="logo">
+    <a href="#"><img src="./img/logo.jpg" alt="The Pastry Hub" /></a>
+    <p>Welcome to The Pastry Hub!</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <h1>Create Your Account</h1>
+
+    <form id="signup-form">
+      <div class="form-group">
+        <label for="firstName">First Name <span>*</span></label>
+        <input type="text" id="firstName" required />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name <span>*</span></label>
+        <input type="text" id="lastName" required />
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth <span>*</span></label>
+        <input type="date" id="dob" required />
+        <div id="dobError" style="color:red;"></div>
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender <span>*</span></label>
+        <select id="gender" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number <span>*</span></label>
+        <input type="tel" id="phone" required />
+      </div>
+      <div class="form-group">
+        <label for="trn">Tax Registration Number (TRN) <span>*</span></label>
+        <input type="number" id="trn" required />
+        <div id="trnError" style="color:red;"></div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email <span>*</span></label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password <span>*</span></label>
+        <input type="password" id="password" required />
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password <span>*</span></label>
+        <input type="password" id="confirmPassword" required />
+        <div id="passwordError" style="color:red;"></div>
+      </div>
+      <button type="submit" class="submit-btn">Register</button>
+      <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+    </form>
+    <p>Already have an account? <a href="./login.html">Login here</a>.</p>
+  </div>
+</main>
+<script>
+  
+
+      document.addEventListener('DOMContentLoaded', function() {
+          localStorage.clear();
+      //document.getElementById("signup-form").reset(); // Clear form on page load
+
+
+
+          // Restrict TRN input to exactly 9 digits
+          const trnInput = document.getElementById("trn");
+          const trnError = document.getElementById("trnError");
+          
+          trnInput.addEventListener("input", function() {
+              this.value = this.value.replace(/\D/g, "").slice(0, 9); // Allow only digits and limit to 9
+              if (this.value.length !== 9) {
+                  trnError.textContent = "TRN must be exactly 9 digits.";
+              } else {
+                  trnError.textContent = "";
+              }
+          });
+
+          // Restrict Phone Number input to exactly 7 digits
+          const phoneInput = document.getElementById("phone");
+          const phoneError = document.createElement("div");
+          phoneError.style.color = "red";
+          phoneInput.parentNode.appendChild(phoneError);
+
+          phoneInput.addEventListener("input", function() {
+              this.value = this.value.replace(/\D/g, "").slice(0, 10); // Allow only digits and limit to 7
+              if (this.value.length !== 10) {
+                  phoneError.textContent = "Phone number must be exactly 10 digits.";
+              } else {
+                  phoneError.textContent = "";
+              }
+          });
+        
+   
+    });
+
+  document.getElementById("signup-form").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      // Retrieve input values
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const dob = document.getElementById("dob").value;
+      const gender = document.getElementById("gender").value;
+      const phone = document.getElementById("phone").value;
+      const trn = document.getElementById("trn").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      // Error message elements
+      const dobError = document.getElementById("dobError");
+      const passwordError = document.getElementById("passwordError");
+
+      // Clear any previous error messages
+      dobError.textContent = "";
+      passwordError.textContent = "";
+
+      // Validate age
+  // Get the current year
+  // Convert input string to Date object
+    const dob2 = new Date(document.getElementById("dob").value);
+    const currentYear = new Date().getFullYear();
+
+    if (dob2.getFullYear() > currentYear) {
+        dobError.textContent = "Invalid date of birth. You cannot be born in the future!";
+      return;
+      } else if (calculateAge(dob2) < 18) {
+        dobError.textContent = "You must be at least 18 years old to register.";
+        return;
+      } else {
+        dobError.textContent = ""; // Clear error if valid
+    }
+
+      // Store data in Local Storage
+      const newUser = { firstName, lastName, dob, gender, phone, trn, email, password };
+      const registrationData = JSON.parse(localStorage.getItem("RegistrationData")) || [];
+
+      registrationData.push(newUser);
+
+      localStorage.setItem("RegistrationData", JSON.stringify(registrationData));
+
+      // Send data to the PHP backend for database storage
+      try {
+          const response = await fetch("register.php", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newUser),
+          });
+
+          const result = await response.json();
+          if (result.success) {
+              alert("Registration successful!");
+              window.location.href = "./login.html"; // Redirect after success
+          } else {
+              alert("Error: " + result.message);
+          }
+      } catch (error) {
+          console.error("Registration failed:", error);
+          alert("Registration failed. Please try again.");
+      }
+  });
+
+  // Function to calculate age
+  function calculateAge(birthDate) {
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+      return age;
+  }
+</script>
+
+  
+
+</body>
+</html>

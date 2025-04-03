@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            font-size: 3rem;
+            color: #333;
+        }
+
+        .icon {
+            font-size: 50px;
+            color: #007bff;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Display -->
+        <img src="img/logo.jpg" alt="Logo" class="logo">
+        
+        <!-- Welcome Message -->
+        <div class="welcome-message">Welcome to The Pastry Hub!</div>
+        
+        <!-- Timer and Redirect Message -->
+        <div class="icon">⏳</div>
+        <div class="timer" id="timer">3</div>
+        <div class="message">You will be redirected to the product page shortly...</div>
+    </div>
+
+    <script>
+        // Start countdown from 3 seconds
+        let countdown = 2;
+        const timerElement = document.getElementById("timer");
+
+        const countdownInterval = setInterval(function() {
+            countdown--;
+            timerElement.textContent = countdown;
+
+            // When countdown reaches 0, redirect to the product page
+            if (countdown === 0) {
+                clearInterval(countdownInterval); // Stop the countdown
+                window.location.href = './product.php'; // Redirect to product page
+            }
+        }, 1000); // Update every second
+    </script>
+</body>
+</html>

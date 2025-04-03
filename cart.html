@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        /* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f1c6d6, #fad0c4); /* Light pink gradient */
+    margin: 0;
+    padding: 0;
+    color: #4b4b4b; /* Dark grey for readability */
+}
+
+header {
+    background-color: #f9a6c1; /* Soft light pink */
+    padding: 20px;
+    text-align: center;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.4em;
+}
+
+#cart-summary {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #4b4b4b;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 100px 2fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    background: #fce3e7; /* Light pink background for cart items */
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.cart-item-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #e02f7d; /* Darker pink for product names */
+}
+
+.cart-item-price, .cart-item-original-price {
+    font-size: 1.1em;
+    color: #e02f7d;
+    font-weight: bold;
+}
+
+.cart-item-original-price {
+    text-decoration: line-through;
+    color: #f56476; /* Lighter pink for original price */
+}
+
+.cart-item-total {
+    text-align: center;
+    font-size: 1.2em;
+    color: #ff80b5; /* Lighter coral for totals */
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-controls button {
+    background: #e02f7d; /* Main pink color for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-controls button:hover {
+    background: #f56476; /* Lighter shade for hover */
+}
+
+.quantity-display {
+    font-size: 1.1em;
+    color: #e02f7d;
+    padding: 5px 10px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #e02f7d;
+}
+
+.remove-item {
+    background-color: #f56476;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-item:hover {
+    background-color: #f8a7b7; /* Lighter shade on hover */
+}
+
+.totals {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px 0;
+    font-size: 1.2em;
+    color: #e02f7d;
+}
+
+.totals div {
+    padding: 12px 18px;
+    background: #fce3e7;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.action-buttons a, .action-buttons button {
+    padding: 15px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back {
+    background-color: #e02f7d;
+    color: #fff;
+}
+
+.btn-back:hover {
+    background-color: #f56476;
+}
+
+.btn-clear {
+    background-color: #f56476;
+    color: #ffffff;
+}
+
+.btn-clear:hover {
+    background-color: #f8a7b7;
+}
+
+.btn-checkout {
+    background-color: #ff80b5;
+    color: #4b4b4b;
+}
+
+.btn-checkout:hover {
+    background-color: #f8c1d0;
+}
+
+/* Cart summary items styled as buttons */
+#cart-container p {
+    display: inline-block;
+    padding: 12px 22px;
+    margin: 10px;
+    font-size: 1.2em;
+    color: #ffffff;
+    background-color: #e02f7d;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#cart-container p:hover {
+    background-color: #f56476;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .cart-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .quantity-controls {
+        justify-content: center;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header id="head">
+        <h1>Welcome, <span id="userName">Guest</span> To Your Shopping Cart</h1>    
+    </header>
+
+    <div id="cart-container">
+        <div id="cart-items"></div>
+
+            <p id="subtotal"></p>
+            <p id="tax"></p>
+            <p id="discount"></p>
+            <p id="total-savings"></p>
+            <p id="total-price"></p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="./product.php" class="btn-back">Back to Products</a>
+            <button id="clear-cart" class="btn-clear">Clear Cart</button>
+            <a href="./checkout.html" class="btn-checkout">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <script>
+        
+    function getCurrentUser() 
+    {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        // Check if currentUser exists
+        if (currentUser) {
+            // Capitalize the first letter of each name part (first name and last name)
+            const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+            const fullName = `${capitalize(currentUser.first_name)} ${capitalize(currentUser.last_name)}`;
+            document.getElementById('userName').textContent = fullName; // Display the capitalized name
+        } else {
+            // If no user is logged in, show "Guest" as the user name
+            document.getElementById('userName').textContent = 'Guest';
+            alert("Please Login before making purchase");
+            window.location.href = "login.html"; // Redirect to login page
+
+        }
+    }
+// Initialize Cart
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Update Cart Display
+function updateCartDisplay() 
+{
+    const cartDisplay = document.getElementById('cart-items');
+    cartDisplay.innerHTML = '';
+
+    let subtotal = 0;
+    let totalSavings = 0; // Track total savings
+
+    cart.forEach((item, index) => {
+        const itemTotalPrice = item.price * item.quantity;
+        const itemSavings = (item.old_price - item.price) * item.quantity;
+        subtotal += itemTotalPrice;
+        totalSavings += itemSavings;
+
+        cartDisplay.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <span class="cart-item-name">${item.name}</span>
+                <span class="cart-item-price">Price: $${item.price}</span>
+                <span class="cart-item-original-price">Original Price: $${item.old_price}</span>
+                <div class="quantity-controls">
+                    <button class="decrease-quantity" data-index="${index}">-</button>
+                    <span class="quantity-display">${item.quantity}</span>
+                    <button class="increase-quantity" data-index="${index}">+</button>
+                </div>
+                <span class="cart-item-total">Total: $${itemTotalPrice.toFixed(2)}</span>
+                <button class="remove-item" data-index="${index}">Remove</button>
+            </div>`;
+    });
+
+    const tax = subtotal * 0.1;
+    const discount = subtotal > 100 ? subtotal * 0.15 : 0;
+    const total = subtotal + tax - discount;
+
+    document.getElementById('subtotal').textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+    document.getElementById('tax').textContent = `Total Tax: $${tax.toFixed(2)}`;
+    document.getElementById('discount').textContent = `Total Discount: $${discount.toFixed(2)}`;
+    document.getElementById('total-savings').textContent = `Total Savings: $${totalSavings.toFixed(2)}`;
+    document.getElementById('total-price').textContent = `Final Total: $${total.toFixed(2)}`;
+}
+
+// Adjust Quantity
+function adjustQuantity(index, amount) {
+    if (cart[index]) {
+        cart[index].quantity += amount;
+        if (cart[index].quantity < 1) cart[index].quantity = 1; // Prevent zero or negative quantities
+        saveCart();
+        updateCartDisplay();
+    }
+}
+
+// Save Cart to localStorage
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+}
+
+// Event Listeners
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('increase-quantity')) {
+        adjustQuantity(event.target.dataset.index, 1);
+    } else if (event.target.classList.contains('decrease-quantity')) {
+        adjustQuantity(event.target.dataset.index, -1);
+    } else if (event.target.classList.contains('remove-item')) {
+        const index = event.target.dataset.index;
+        cart.splice(index, 1);
+        saveCart();
+        updateCartDisplay();
+    }
+});
+
+// Clear Cart
+document.getElementById('clear-cart').addEventListener('click', () => {
+    if (confirm('Are you sure you want to clear the cart?')) {
+        cart = [];
+        localStorage.removeItem('cart');
+        updateCartDisplay();
+    }
+});
+
+// Page Load
+document.addEventListener('DOMContentLoaded', updateCartDisplay);
+document.addEventListener('DOMContentLoaded', getCurrentUser);
+
+
+    </script>
+</body>
+</html>

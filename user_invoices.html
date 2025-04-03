@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Check Order ID</h2>
+    <input type="text" id="orderId" placeholder="Enter Order ID">
+    <button onclick="checkOrder()">Check</button>
+    <p id="message"></p>
+
+    <script>
+        function checkOrder() 
+        {
+            let orderId = document.getElementById("orderId").value.trim();
+            let userId = 9; // Replace with actual user ID
+
+            if (!orderId) {
+                document.getElementById("message").innerText = "Please enter an Order ID.";
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("user_id", userId);
+            formData.append("order_id", orderId);
+
+            fetch("order_check.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("message").innerText = "An error occurred.";
+            });
+
+            document.getElementById("message").innerText = data.message;
+
+        }
+    </script>
+
+</body>
+</html>

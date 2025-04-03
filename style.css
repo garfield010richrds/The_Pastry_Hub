@@ -1,0 +1,516 @@
+
+body {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  width: 100%; /* Make sure the container is 100% wide */
+  margin: 0 auto;
+  padding-left: 20px;
+  
+}
+
+a {
+  color: #008080;
+  text-decoration: none;
+}
+.head{
+  text-align: center;
+  background-color:palevioletred;
+  padding: 2px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f9f9f9;
+  font-weight: bolder;
+}
+/* Header */
+#top-header {
+  background-color: #f5f5f5;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.header-logo {
+  flex: 5;
+ 
+}
+
+.header-logo img {
+  max-width: 100%;
+  padding-top:20px;
+ 
+}
+
+/* Search Bar */
+.header-search form {
+  display: flex;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-right: 10px; /* Reduce margin to give more space */
+  flex-grow: 1; /* Make search bar take up available space */
+}
+
+.input-select, .input {
+  padding: 10px;
+  border: none;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+.search-btn {
+  background-color: #008080;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #005f5f;
+}
+
+/* Account Links - Icons to the right */
+.header-ctn {
+  display: flex;
+  justify-content: right; /* Push icons to the right */
+  align-items: center;
+  gap: 20px;
+  flex-grow: 0.5; /* Ensure it stretches fully to the right */
+  padding-right: 30px; 
+  margin-right: 20px; 
+}
+
+.header-ctn div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-ctn a {
+  color: #333;
+  font-size: 14px;
+  text-align: center;
+}
+
+.header-ctn .fa {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Menu Toggle (Account Section) */
+.menu-toggle {
+  position: relative;
+  display: inline-block;
+}
+
+.account-dropdown {
+  display: none; /* Initially hidden */
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 4px;
+  padding: 10px 0;
+}
+
+.account-dropdown li {
+  list-style-type: none;
+  text-align: left;
+  padding: 8px 16px;
+}
+
+.account-dropdown li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.account-dropdown li a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Dropdown toggle hover styling */
+.account-dropdown-toggle {
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+}
+
+.menu-toggle:hover .account-dropdown,
+.menu-toggle.active .account-dropdown {
+  display: block; /* Show dropdown on hover or active state */
+}
+
+
+/* Navigation */
+#navigation {
+  background-color: #008080;
+  padding: 1px;
+}
+.main-nav {
+  justify-content: space-evenly;
+}
+.main-nav li {
+  display: inline-block;
+  margin-right: 20px;
+  
+}
+
+.main-nav a {
+  color: #fff;
+  font-size: 16px;
+ 
+ justify-content: space-evenly;
+}
+
+.main-nav .active a {
+  background-color: #005f5f;
+  border-radius: 4px;
+ 
+
+}
+
+.main-nav a:hover {
+  background-color: #006b6b;
+  border-radius: 4px;
+}
+
+.product-details {
+  display: flex; /* Use flexbox for horizontal alignment */
+  align-items: center; /* Vertically center align items */
+  justify-content: center; /* Center items horizontally */
+   /* Add some space above the details */
+}
+
+
+.product img {
+  margin-left: 10px; /* Adds 10px space on the left */
+}
+
+.product-details {
+  margin-top: 10px; /* Adjusts space between price and buttons */
+  margin-left: 10px;
+
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Centers buttons within the product */
+  gap: 10px; /* Adds space between buttons */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Section Styles */
+.section {
+  padding: 20px 0; /* Adds space above and below */
+}
+
+/* Container Styles */
+.container {
+  width: 90%; /* Container width */
+  margin: 0 auto; /* Centers the container */
+}
+
+/* Row Styles */
+.row {
+  display: flex; /* Enables flexbox for the row */
+  flex-wrap: wrap; /* Allows wrapping of items */
+  justify-content: space-between; /* Space between items */
+}
+
+/* Shop Item Styles */
+.shop {
+  background: #fff; /* White background for shop items */
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* Hides overflow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: calc(33.33% - 20px); /* Width for 3 items per row with spacing */
+  margin-bottom: 20px; /* Spacing below each item */
+  position: relative; /* Positioning for overlay elements */
+  transition: transform 0.3s; /* Smooth scale effect */
+}
+
+/* Hover Effect */
+.shop:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Shop Image Styles */
+.shop-img {
+  height: 350px; /* Fixed height for images */
+  overflow: hidden; /* Hide overflow */
+  position: relative; /* For absolute positioning of button */
+}
+
+.shop-img img {
+  width: 100%; /* Full width */
+  height: auto; /* Auto height to maintain aspect ratio */
+  max-height: 100%; /* Ensures image does not exceed container height */
+  object-fit: cover; /* Cover the area while preserving aspect ratio */
+}
+
+/* Shop Overlay Styles */
+.shop-overlay {
+  position: absolute; /* Position absolute for overlay */
+  top: 0; /* Align to top */
+  left: 0; /* Align to left */
+  right: 0; /* Align to right */
+  bottom: 0; /* Align to bottom */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white; /* Text color */
+  display: flex; /* Flexbox for centering */
+  flex-direction: column; /* Column direction for stacking */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  opacity: 1; /* Initially hidden */
+ 
+}
+
+/* Show Overlay on Hover */
+.shop:hover .shop-overlay {
+  opacity: 1; /* Show overlay on hover */
+}
+
+/* Shop Body Styles */
+.shop-body {
+  padding: 10px; /* Padding inside the shop item */
+  text-align: center; /* Center text */
+}
+
+.shop-body h3 {
+  font-size: 20px; /* Title font size */
+  margin: 10px 0; /* Spacing above and below title */
+  color: #008080; /* Customize color as needed */
+}
+
+/* CTA Button Styles */
+.cta-btn {
+  position: relative; /* Relative for proper positioning */
+  background: transparent; /* Transparent background */
+  color: #008080; /* Text color */
+  padding: 10px 20px; /* Padding for the button */
+  text-align: center; /* Center text */
+  border: 2px solid #008080; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  opacity: 0.9; /* Slightly transparent */
+  transition: background-color 0.3s, color 0.3s; /* Transition for hover effect */
+}
+
+.cta-btn:hover {
+  background-color: rgba(0, 128, 128, 0.8); /* Slightly dark background on hover */
+  color: white; /* Change text color on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .shop {
+      width: calc(50% - 10px); /* Two items per row on medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .shop {
+      width: 100%; /* One item per row on small screens */
+  }
+}
+
+
+
+
+
+
+
+.section {
+  padding: 40px 0; /* Space around the section */
+}
+
+.section-title {
+  margin-bottom: 30px; /* Space below the title */
+  text-align: center;
+}
+.featured-title{
+  text-align: center;
+}
+
+.product-widget {
+  border: 1px solid #eaeaea; /* Light border around each product */
+  border-radius: 5px; /* Rounded corners */
+  padding: 15px; /* Padding inside each product widget */
+  margin-bottom: 20px; /* Space below each product widget */
+  transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.product-widget:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+}
+
+.product-img img {
+  max-width: 100%; /* Responsive image */
+  border-radius: 5px; /* Rounded corners for images */
+}
+
+.product-body {
+  text-align: center; /* Center text inside product body */
+}
+
+.product-category {
+  font-size: 14px; /* Font size for category */
+  color: #777; /* Grey color for category */
+  margin-bottom: 5px; /* Space below category */
+}
+
+.product-name {
+  font-size: 16px; /* Font size for product name */
+  margin: 5px 0; /* Space around product name */
+}
+
+.product-price {
+  font-size: 18px; /* Font size for product price */
+  color: #ff4d4d; /* Price color */
+}
+
+.product-old-price {
+  text-decoration: line-through; /* Strikethrough for old price */
+  color: #aaa; /* Grey color for old price */
+}
+
+
+/* Buy Now Button */
+.buy-btn {
+  background-color: palevioletred; /* Orange background for Buy Now */
+  color: #fff; /* White text */
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+  background-color: #008080; /* Teal background for Add to Cart */
+  color: #fff; /* White text */
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+h2 {
+  text-align: center;
+  color: #008080; /* Teal color for the title */
+  margin-bottom: 20px; /* Space below the title */
+}
+
+h3 {
+  color: #006666; /* Darker teal for subheadings */
+  margin-top: 20px; /* Space above subheadings */
+}
+
+ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Remove padding */
+}
+
+li {
+  margin: 10px 0; /* Space between list items */
+  font-size: 1.1em; /* Slightly larger font for readability */
+}
+
+a {
+  color: #008080; /* Teal color for links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+a:hover {
+  text-decoration: underline; /* Underline links on hover */
+}
+
+p {
+   /* Center paragraph text */
+  margin-top: 20px; /* Space above paragraph */
+ font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.footer {
+  background-color: #008080; /* Change to your preferred background color */
+  color: white; /* Change to your preferred text color */
+ 
+  font-size: 14px;
+}
+
+.footer-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: white; /* Change to your preferred link color */
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-social {
+  margin-top: 10px;
+}
+
+.footer-social a {
+  color: white; /* Change to your preferred icon color */
+  margin-right: 10px;
+  font-size: 18px; /* Adjust icon size */
+}
+
+.footer-social a:hover {
+  color: #ff4081; 
+}
+
